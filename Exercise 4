@@ -1,0 +1,53 @@
+Queries -
+
+
+
+
+INSERT INTO department VALUES ('D01','Finance','E001','2019-01-01');
+INSERT INTO department VALUES ('D02','R&D','E002','2018-06-15');
+INSERT INTO department VALUES ('D03','HR','E003','2020-03-10');
+
+
+INSERT INTO dlocation VALUES ('D01','Bangalore');
+INSERT INTO dlocation VALUES ('D01','Mysore');
+INSERT INTO dlocation VALUES ('D02','Hubli');
+INSERT INTO dlocation VALUES ('D02','Bangalore');
+INSERT INTO dlocation VALUES ('D03','Belgaum');
+
+INSERT INTO employee VALUES ('E001','Ramesh',80000,'M','Bangalore','1985-05-12','D01',NULL);
+INSERT INTO employee VALUES ('E002','Suresh',60000,'M','Bangalore','1990-08-20','D02','E001');
+INSERT INTO employee VALUES ('E003','Anita',55000,'F','Mysore','1992-03-15','D03','E001');
+INSERT INTO employee VALUES ('E004','Kiran',70000,'M','Hubli','1988-11-25','D02','E001');
+INSERT INTO employee VALUES ('E005','Meena',50000,'F','Belgaum','1994-02-10','D01','E002');
+INSERT INTO employee VALUES ('E006','Rahul',65000,'M','Dharwad','1991-06-18','D02','E002');
+
+
+INSERT INTO project VALUES ('P01','Payroll','Bangalore','D01',500000,'2023-01-01','2025-01-01');
+INSERT INTO project VALUES ('P02','Audit','Mysore','D01',500000,'2023-02-01','2025-06-01');
+INSERT INTO project VALUES ('P03','AI Tool','Bangalore','D02',300000,'2023-03-01','2027-03-01');
+INSERT INTO project VALUES ('P04','Robotics','Hubli','D02',400000,'2023-04-01','2024-04-01');
+INSERT INTO project VALUES ('P05','Automation','Mysore','D02',300000,'2023-05-01','2026-05-01');
+INSERT INTO project VALUES ('P06','Recruitment','Belgaum','D03',200000,'2023-06-01','2024-12-01');
+
+
+INSERT INTO works_on VALUES ('E002','P03',10);
+INSERT INTO works_on VALUES ('E002','P04',12);
+INSERT INTO works_on VALUES ('E002','P05',8);
+
+INSERT INTO works_on VALUES ('E004','P03',15);
+INSERT INTO works_on VALUES ('E004','P04',10);
+INSERT INTO works_on VALUES ('E004','P05',12);
+
+INSERT INTO works_on VALUES ('E005','P01',10);
+INSERT INTO works_on VALUES ('E005','P02',10);
+
+INSERT INTO works_on VALUES ('E006','P03',15);
+INSERT INTO works_on VALUES ('E006','P04',10);
+INSERT INTO works_on VALUES ('E006','P05',10);
+
+
+
+INSERT INTO dependent VALUES ('E002','Ravi','M','2010-01-01','Son');
+INSERT INTO dependent VALUES ('E004','Sita','F','2012-03-05','Daughter');
+INSERT INTO dependent VALUES ('E005','Arjun','M','2015-05-12','Son');
+INSERT INTO dependent VALUES ('E006','Kavya','F','2016-06-18','Daughter');

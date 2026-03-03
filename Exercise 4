@@ -1,5 +1,32 @@
 Queries -
 
+1.
+SELECT e.name, d.dname
+FROM employee e
+JOIN department d ON e.dnumber = d.dnumber
+WHERE e.salary > (
+    SELECT AVG(e.salary)
+    FROM employee e
+    JOIN department d ON e.dnumber = d.dnumber
+    WHERE d.dname = 'Finance'
+);
+
+2.
+SELECT e.name, count(w.pnumber) 
+from employee e
+JOIN works_on w on e.ssn=w.ssn
+JOIN project on p.pnumber=w.pnumber
+where p.dnumber = 
+    (SELECT dnumber from department where dname="R&D")
+GROUP BY e.name
+Having count(w.pnumber) > 2;
+
+3. 
+SELECT p.pnumber, p.pname, d.dname, p.end_date
+FROM project p JOIN department d ON p.dnumber=d.dnumber
+WHERE p.end_date > current_date;
+
+4.
 
 
 

@@ -46,6 +46,17 @@ WHERE d.ssn IN (
     HAVING sum(p.proj_cost) >= 1000000
 );
 
+6. 
+SELECT distinct e.ssn, e.name, d.dname from employee e
+JOIN works_on w ON w.ssn=e.ssn
+JOIN project p ON p.pnumber = w.pnumber
+JOIN department d ON d.dnumber = p.dnumber
+WHERE p.dnumber IN (
+    SELECT dnumber from project
+    GROUP BY dnumber
+    HAVING count(plocation) > 1
+);
+
 
 INSERT INTO department VALUES ('D01','Finance','E001','2019-01-01');
 INSERT INTO department VALUES ('D02','R&D','E002','2018-06-15');

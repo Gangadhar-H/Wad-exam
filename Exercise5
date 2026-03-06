@@ -1,7 +1,15 @@
 
 
 1.
-
+SELECT v.name FROM vendor v
+JOIN installation i ON i.tin = v.tin
+where i.install_type="Domestic"
+GROUP BY v.name
+HAVING COUNT(*) >= ALL (
+    SELECT COUNT(*) from installation 
+    where install_type="Domestic"
+    GROUP BY tin
+);
 
 
 

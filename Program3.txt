@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Student Registration Form </title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+	</head>
+
+	<body class="bg-secondary">
+		<main class="container mx-auto fs-4">
+			<h2 class="text-center mb-3">Student Registration </h2>
+			<div class="card shadow-sm p-4 mt-3 bg-light w-75 mx-auto vh-75">
+			<form id="formRegister">
+				<div class="mb-5">
+					<label for="fname" class="form-label"> First Name: </label>
+					<input type="text" id="fname" name="fname" class="form-control">
+					<span id="nameSpan" class="text-danger"></span>
+				</div>
+				<div class="mb-5">
+					<label for="lname" class="form-label"> Last Name: </label>
+					<input type="text" id="lname" name="lname" class="form-control">
+				</div>
+				<div class="mb-5">
+					<label for="email" class="form-label"> Email: </label>
+					<input type="text" id="email" name="email" class="form-control">
+					<span class="text-danger" id="emailSpan"></span>
+				</div>
+
+				<div class="mb-5">
+                                        <label for="phno" class="form-label"> Phone no: </label>
+                                        <input type="text" id="phno" name="phno" class="form-control">
+                                        <span class="text-danger" id="phSpan"></span>
+                                </div>
+
+				<div class="mb-5">
+                                        <label for="usn" class="form-label"> USN: </label>
+                                        <input type="text" id="usn" name="usn" class="form-control">
+                                        <span class="text-danger" id="usnSpan"></span>
+                                </div>
+			
+				<div class="mx-auto">
+					<button type="submit" class="btn btn-primary w-50 text-center"> Submit </button>
+				</div>
+
+			</form>
+			</div>
+		</main>
+
+		
+	<script>
+
+		document.getElementById("formRegister").addEventListener("submit", (e) => {
+			e.preventDefault();
+			let name = document.getElementById("fname").value;
+			let email = document.getElementById("email").value;
+			let phno = document.getElementById("phno").value;
+			let usn = document.getElementById("usn").value;
+						
+			let nameReg = /^[a-zA-Z]{2,}$/;
+			let emailReg = /^[a-zA-Z._+-]+@[a-zA-Z]+\.[a-zA-Z]{2,}$/;
+			let phReg = /^[6-9]\d{9}$/;
+
+			let nSpan = document.getElementById("nameSpan");
+			let eSpan = document.getElementById("emailSpan");
+			let phSpan = document.getElementById("phSpan");
+
+			let isValid = true;
+
+			if (!emailReg.test(email)) {
+				eSpan.innerText = "Invalid email";
+				isValid = false;
+			} else {
+				eSpan.innerText ="";
+			}
+
+			if (isValid) {
+				alert("Login successful");
+				document.getElementById("formRegister").reset();
+			}
+		});
+			
+	
+	</script>		
+
+
+	</body>
+
+</html>

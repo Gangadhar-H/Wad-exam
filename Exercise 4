@@ -27,7 +27,24 @@ FROM project p JOIN department d ON p.dnumber=d.dnumber
 WHERE p.end_date > current_date;
 
 4.
+SELECT s.ssn, s.name from employee s 
+JOIN employee e ON e.s_ssn = s.ssn
+JOIN works_on w ON w.ssn = s.ssn
+JOIN project p ON p.pnumber = w.pnumber
+WHERE p.end_date < current_date
+GROUP BY s.ssn
+HAVING count(e.ssn) > 3;
 
+5. 
+SELECT d.name, e.ssn, e.name from employee e
+JOIN dependent d ON d.ssn = e.ssn
+WHERE d.ssn IN (
+    SELECT e.ssn from employee e 
+    JOIN works_on w ON w.ssn=e.ssn
+    JOIN project p ON p.pnumber = w.pnumber
+    GROUP BY e.ssn
+    HAVING sum(p.proj_cost) >= 1000000
+);
 
 
 INSERT INTO department VALUES ('D01','Finance','E001','2019-01-01');

@@ -1,0 +1,85 @@
+
+
+1.
+
+
+
+
+2.
+SELECT u.address, s.capacity FROM user u
+JOIN installation i ON i.hno = u.hno
+JOIN solar s ON s.pv = i.pv
+where s.capacity = (
+  SELECT MAX(capacity) FROM solar
+);
+
+3. 
+SELECT distinct u.address from user u
+JOIN installation i ON i.hno=u.hno
+JOIN solar s ON s.pv = i.pv
+where s.p_type = "Mono";
+
+4. 
+SELECT u.address, s.p_type, SUM(s.charge) from user u
+JOIN installation i ON i.hno = u.hno
+JOIN solar s ON s.pv = i.pv 
+GROUP BY u.address, s.p_type;
+
+5.
+SELECT v.name, i.install_date, s.pv, s.capacity from vendor v
+JOIN installation i ON i.tin = v.tin
+JOIN solar s ON s.pv = i.pv
+WHERE i.install_date = (
+  SELECT MIN(install_date) from installation
+);
+
+6.
+SELECT s.p_type, AVG(s.charge) from solar s
+JOIN installation i ON i.pv = s.pv 
+WHERE i.install_type="Commercial"
+GROUP BY s.p_type;
+
+
+
+
+INSERT INTO solar VALUES ('PV101','Mono','40000','2038-01-01',300);
+INSERT INTO solar VALUES ('PV102','Poly','60000','2048-01-01',500);
+INSERT INTO solar VALUES ('PV103','Mono','40000','2038-01-01',250);
+INSERT INTO solar VALUES ('PV104','Poly','60000','2048-01-01',600);
+INSERT INTO solar VALUES ('PV105','Mono','40000','2038-01-01',450);
+INSERT INTO solar VALUES ('PV106','Poly','60000','2048-01-01',550);
+
+INSERT INTO vendor VALUES ('TIN101','Ramesh','987654321');
+INSERT INTO vendor VALUES ('TIN102','Suresh','912345678');
+INSERT INTO vendor VALUES ('TIN103','Mahesh','998877665');
+INSERT INTO vendor VALUES ('TIN104','Anita','889977665');
+
+INSERT INTO user VALUES ('H01','Belgaum',4);
+INSERT INTO user VALUES ('H02','Bangalore',10);
+INSERT INTO user VALUES ('H03','Hubli',6);
+INSERT INTO user VALUES ('H04','Mysore',12);
+INSERT INTO user VALUES ('H05','Dharwad',3);
+
+INSERT INTO sold_by VALUES ('PV101','TIN101');
+INSERT INTO sold_by VALUES ('PV102','TIN101');
+INSERT INTO sold_by VALUES ('PV103','TIN102');
+INSERT INTO sold_by VALUES ('PV104','TIN103');
+INSERT INTO sold_by VALUES ('PV105','TIN104');
+INSERT INTO sold_by VALUES ('PV106','TIN102');
+
+
+INSERT INTO purchased_by VALUES ('PV101','H01');
+INSERT INTO purchased_by VALUES ('PV102','H02');
+INSERT INTO purchased_by VALUES ('PV103','H03');
+INSERT INTO purchased_by VALUES ('PV104','H04');
+INSERT INTO purchased_by VALUES ('PV105','H05');
+INSERT INTO purchased_by VALUES ('PV106','H01');
+
+
+INSERT INTO installation VALUES ('PV101','H01','TIN101','Domestic','2018-01-10');
+INSERT INTO installation VALUES ('PV101','H03','TIN102','Domestic','2020-11-12');
+INSERT INTO installation VALUES ('PV102','H02','TIN101','Commercial','2019-05-15');
+INSERT INTO installation VALUES ('PV103','H03','TIN102','Domestic','2020-03-20');
+INSERT INTO installation VALUES ('PV104','H04','TIN103','Commercial','2021-07-25');
+INSERT INTO installation VALUES ('PV105','H05','TIN104','Domestic','2022-11-12');
+INSERT INTO installation VALUES ('PV106','H01','TIN101','Commercial','2023-08-05');

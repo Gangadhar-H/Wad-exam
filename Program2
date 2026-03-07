@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inventory Management</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+
+<body class="bg-secondary">
+
+        <div class="container mt-4">
+                <h2 class="text-center mb-4"> Inventory Management </h2>
+
+                <div class="card p-4 shadow-sm bg-light">
+                        <h4> Add New Product </h4>
+
+                        <form id="inventoryForm" class="mt-3">
+                                <div class="row g-3">
+                                        <div class="col-md-3">
+                                                <label class="form-label"> Item Name: </label>
+                                                <input type="text" id="itemName" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-3">
+                                                <label class="form-label"> Quantity </label>
+                                                <input type="text" id="quantity" class="form-control">
+                                        </div>
+                                        <div class="col-md-3">
+                                                <label class="form-label"> Price </label>
+                                                <input type="number" id="price" class="form-control">
+                                        </div>
+                                        <div class="col-md-3">
+                                                <label class="form-label"> Year of manufacture </label>
+                                                <input type="number" id="year" class="form-control">
+                                        </div>
+                                </div>
+                                <div class="mt-3 d-flex gap-5">
+                                        <button type="button" id="addBtn" class="btn btn-primary"> Add </button>
+                                        <button type="reset" class="btn btn-secondary"> Reset </button>
+                                </div>
+                        </form>
+                </div>
+
+                <div class="card p-4 mt-4 shadow-lg">
+                        <h4> Product List </h4>
+
+                        <table class="table table-bordered text-center mt-3">
+
+                                <thead class="table-dark">
+                                        <tr>
+                                        <th> Item </th>
+                                        <th> Quantity </th>
+                                        <th> Price </th>
+                                        <th> Year </th>
+                                        <th> Remove/Edit </th>
+                                        </tr>
+                                </thead>
+
+                                <tbody id="productTable"> </tbody>
+
+                        </table>
+                </div>
+
+        </div>
+
+
+        <script>
+
+                let editRow=null;
+
+                document.getElementById("addBtn").addEventListener("click", () => {
+                        let item = document.getElementById("itemName").value;
+                        let qty = document.getElementById("quantity").value;
+                        let price = document.getElementById("price").value;
+                        let year = document.getElementById("year").value;
+
+                        if (editRow) {
+                                editRow.cells[0].innerText = item;
+                                editRow.cells[1].innerText = qty;
+                                editRow.cells[2].innerText = price;
+                                editRow.cells[3].innerText = year;
+
+                                editRow = null;
+                                document.getElementById("addBtn").innerText = "Add";
+
+                        }
+                        else {
+
+                        let table = document.getElementById("productTable");
+                        let row = document.createElement("tr");
+
+                        row.innerHTML = `
+                                <td>${item}</td>
+                                <td>${qty}</td>
+                                <td>${price}</td>
+                                <td>${year}</td>
+                                <td>
+                                        <button class="btn btn-danger removeBtn"> Remove </button>
+                                        <button class="btn btn-secondary editBtn"> Edit </button>
+                                </td>
+                        `;
+
+                        table.appendChild(row);
+                        }
+
+                        document.getElementById("inventoryForm").reset();
+
+                });
+
+                document.getElementById("productTable").addEventListener("click", (e) => {
+                        if (e.target.classList.contains("removeBtn")) {
+                        let row = e.target.parentElement.parentElement;
+                        row.remove();
+                        }
+
+                        if (e.target.classList.contains("editBtn")) {
+
+                                editRow = e.target.parentElement.parentElement;
+                                document.getElementById("itemName").value = editRow.cells[0].innerText;
+                                document.getElementById("quantity").value = editRow.cells[1].innerText;
+                                document.getElementById("price").value = editRow.cells[2].innerText;
+                                document.getElementById("year").value = editRow.cells[3].innerText;
+
+                                document.getElementById("addBtn").innerText = "Update";
+                        }
+                });
+
+
+        </script>
+
+
+</body>
+
+
+</html>
